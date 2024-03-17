@@ -7,6 +7,8 @@ import MoreMovie from './MoreMovie';
 import { NavLink } from "react-router-dom";
 import "../Detail/Style.css"
 import VideoTrailer from './VideoTrailer'
+import Footer from '../Footer';
+import Navbar from '../Navbar';
 
 export default function Detail() {
     let param = useParams()
@@ -52,6 +54,11 @@ export default function Detail() {
     };
     return (
         <div>
+            {/* HEADER */}
+            <div className="header">
+                <Navbar/>
+                
+            </div>
             <div className='productdetail'>
                 {/* BANNER */}
                 <div className="productdetail-banner" >
@@ -92,7 +99,7 @@ export default function Detail() {
                 <div className="productdetail-content">
                     {carouselItems.map((item) =>
                         <div className="productdetail-content-item" key={item.id}>
-                            <div className="productdetai-content-title">
+                            <div className="productdetail-content-title">
                                 <div className='productdetail-content-name'>
                                     <h2>{item.nameFilm}</h2>
                                     <div className="productdetail-content-catogery">
@@ -120,22 +127,23 @@ export default function Detail() {
                                 <div className="movie-img">
                                     <img src={item.img[0]} alt="Movie IMG" />
                                 </div>
+                                <div className="movie-video" >
+                                    <button className="booking watch-trailer-btn " onClick={() => handleWatchTrailer(item.VideoTrailer)}>
+                                        Watch trailer
+                                    </button>
+                                    <VideoTrailer
+                                        isOpen={isTrailerOpen}
+                                        selectedVideoUrl={selectedVideoUrl}
+                                        handleClosePopup={handleCloseTrailer} />
+
+                                </div>
                             </div>
                         </div>
                     )}
 
-                    <div className="movie-video" >
-                        <button className="booking watch-trailer-btn " onClick={() => handleWatchTrailer(item.VideoTrailer)}>
-                            Watch trailer
-                        </button>
-                        <VideoTrailer
-                            isOpen={isTrailerOpen}
-                            selectedVideoUrl={selectedVideoUrl}
-                            handleClosePopup={handleCloseTrailer} />
 
-                    </div>
 
-                    {/* MOVIE CONTENT */}
+                    {/* MOVIE INFO */}
                     {carouselItems.map((item) => (
                         <div className="productdetail-content-info" key={item.id}>
                             <div className="info-left">
@@ -181,12 +189,14 @@ export default function Detail() {
                     <div className="productdetail-content-more">
                         <h2>Phim khác</h2>
                         <MoreMovie />
-                        
+
                     </div>
 
 
                 </div >
             </div>
+            {/* FOOTER */}
+            <Footer />
         </div>
     )
 }
